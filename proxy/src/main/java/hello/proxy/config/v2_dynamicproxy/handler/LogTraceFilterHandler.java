@@ -5,6 +5,7 @@ import hello.proxy.trace.logtrace.LogTrace;
 import org.springframework.util.PatternMatchUtils;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+
 public class LogTraceFilterHandler implements InvocationHandler {
 	
 	private final Object target;
