@@ -11,6 +11,7 @@ import hello.proxy.config.v1_proxy.ConcreteProxyConfig;
 import hello.proxy.config.v1_proxy.InterfaceProxyConfig;
 import hello.proxy.config.v2_dynamicproxy.DynamicProxyBasicConfig;
 import hello.proxy.config.v2_dynamicproxy.DynamicProxyFilterConfig;
+import hello.proxy.config.v3_proxyfactory.ProxyFactoryConfigV1;
 import hello.proxy.trace.logtrace.LogTrace;
 import hello.proxy.trace.logtrace.ThreadLocalLogTrace;
 
@@ -18,14 +19,14 @@ import hello.proxy.trace.logtrace.ThreadLocalLogTrace;
 //@Import(InterfaceProxyConfig.class)
 //@Import(ConcreteProxyConfig.class)
 //@Import(DynamicProxyBasicConfig.class)
-@Import(DynamicProxyFilterConfig.class)
+//@Import(DynamicProxyFilterConfig.class)
+@Import(ProxyFactoryConfigV1.class)
 @SpringBootApplication(scanBasePackages = "hello.proxy.app") //주의
 public class ProxyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProxyApplication.class, args);
 	}
-	
 	@Bean
 	public LogTrace logTrace() {
 		return new ThreadLocalLogTrace();
