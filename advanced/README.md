@@ -114,14 +114,28 @@
 	- exception : exception complate call
 	- complate : logging 구현 method
 	- addSpace : level 구현 method
+- ThreadLocalLogTrace : 동시성 문제 해결 적용
+	- begin : logging start TraceStatus 객체 생성
+	- beginSync : 기존 TraceId 에서 createNextId() 를 통해 level을 증가시킨다.
+	- end : logging end complate call
+	- exception : exception complate call
+	- complate : logging 구현 method
+	- syncTraceId : traceIdHolder를 set 한다 (ThreadLocal)
+	- releaseTraceId : traceIdHolder를 remove 한다 (ThreadLocal)
+	- addSpace : level 구현 method
 	
-## advanced.trace.callback
+## advanced.trace.callback TemplateCallBackPatten
 - TraceCallback : 제네릭 call interface 정의
 - TraceTemplate : TraceCallback 구현체
 	- 생성자 주입 : LogTrace를 주입받는다
 	- execute :
 		- 변하는 값을 정의한다.
 		- 변하지 않는 값을 callback 처리한다.
+		
+## trace.template TemplateMethodPatten
+- AbstractTemplate
+	- execute : 변하지 않는 로직 구성
+	- call : 변하는 로직 추상 메소드 구성
 	
 
 ## JUINIT TEST 동시성 처리
