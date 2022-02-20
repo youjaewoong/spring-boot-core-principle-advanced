@@ -90,4 +90,69 @@ public class ExecutionTest {
 		pointcut.setExpression("execution(* hello.aop..*.*(..))");
 		assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
 	}
+	
+	@Test
+	void typeExactMatch() {
+		pointcut.setExpression("execution(* hello.aop.member.MemberServiceImpl.*(..))");
+		assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void typeMatchSuperType() throws NoSuchMethodException {
+		pointcut.setExpression("execution(* hello.aop.member.MemberServiceImpl.*(..))");
+		
+		Method internalMethod = MemberServiceImpl.class.getMethod("internal", String.class);
+		assertThat(pointcut.matches(internalMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void typeMatchSuperTypeMethodFalse() throws NoSuchMethodException {
+		pointcut.setExpression("execution(* hello.aop.member.MemberService.*(..))");
+		
+		//자식타입에서 부모클래스의 메소드가 없으면 자식클래스의 메소드는 매칭되지 않는다.
+		Method internalMethod = MemberServiceImpl.class.getMethod("internal", String.class);
+		assertThat(pointcut.matches(internalMethod, MemberServiceImpl.class)).isFalse();
+	}
+	
+	//String 타입의 파라미터 허용
+	//(String)
+	@Test
+	void argsMatch() {
+		pointcut.setExpression("execution(* *(String))");
+		assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	//파라미터가 없어야 함
+	//()
+	@Test
+	void argsMatchNoArgs() {
+		pointcut.setExpression("execution(* *())");
+		assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
+	}
+	
+	//정확히 하나의 파라미터 허용, 모든 타입 허용
+	//(Xxx)
+	@Test
+	void argsMatchStar() {
+		pointcut.setExpression("execution(* *(*))");
+		assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	//숫자와 무관하게 모든 파라미터, 모든 타입 허용
+	//파라미터가 없어도 됨
+	//(), (Xxx), (Xxx, Xxx)
+	@Test
+	void argsMatchAll() {
+		pointcut.setExpression("execution(* *(..))");
+		assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	//String 타입으로 시작, 숫자와 무관하게 모든 파라미터, 모든 타입 허용
+	//(String), (String, Xxx), (String, Xxx, Xxx) 허용
+	@Test
+	void argsMatchComplex() {
+		pointcut.setExpression("execution(* *(String, ..))");
+		assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
 }
