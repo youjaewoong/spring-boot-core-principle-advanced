@@ -15,6 +15,6 @@ aop를 학습하며 custom interface를 통한 로그, 재시도  기능이 포�
 - [RetryAspect : aop 구현체](https://github.com/youjaewoong/spring-core-principle-advanced/blob/master/aop/src/main/java/hello/aop/exam/aop/RetryAspect.java)
 - [TraceAspect  aop 구현체](https://github.com/youjaewoong/spring-core-principle-advanced/blob/master/aop/src/main/java/hello/aop/exam/aop/TraceAspect.java)
 
-### [proxy](https://github.com/youjaewoong/spring-core-principle-advanced/tree/master/aop](https://github.com/youjaewoong/spring-core-principle-advanced/tree/master/proxy)
+### [proxy](https://github.com/youjaewoong/spring-core-principle-advanced/tree/master/proxy)
 디자인패턴, 리플렉션, 동적프록시, CGLIB, 빈후처리 등의 기술 TEST가 포함된 프로젝트입니다.
 - [ReflectionTest : 리플렉션 test 기능](https://github.com/youjaewoong/spring-core-principle-advanced/blob/master/proxy/src/test/java/hello/proxy/jdkdynamic/ReflectionTest.java)
